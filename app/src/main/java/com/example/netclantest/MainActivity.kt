@@ -1,19 +1,16 @@
 package com.example.netclantest
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,16 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                  LazyColumn{
-                      item {
-                          ExploreScreen()
-                          ExploreScreen()
-                          ExploreScreen()
-                          ExploreScreen()
-                          ExploreScreen()
-                          ExploreScreen()
-                      }
-                  }
+                    Navbar()
                 }
             }
         }
@@ -50,7 +38,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ExploreScreen(){
+fun Homescreen(){
+    LazyColumn(modifier = Modifier.padding(5.dp)){
+
+        item {
+            ExploreScreen()
+            ExploreScreen()
+            ExploreScreen()
+            ExploreScreen()
+            ExploreScreen()
+
+        }
+    }
+}
+
+@Composable
+fun ExploreScreen( ){
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(20.dp)){
@@ -77,13 +80,41 @@ fun ExploreScreen(){
             }
        }
 
-       Card(modifier = Modifier.offset(y = 0.dp, x = -10.dp).width(100.dp), shape = RoundedCornerShape(20.dp)) {
+       Card(modifier = Modifier
+           .offset(y = 0.dp, x = -10.dp)
+           .width(100.dp), shape = RoundedCornerShape(20.dp)) {
            Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = null, modifier = Modifier)
        }
 
 
     }
 }
+
+@Composable
+fun topBarNav() {
+    TopAppBar(
+        title = {
+            Text(text = "Home")
+        }, navigationIcon = {
+            IconButton(onClick = {  }) {
+                Icon(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = null)
+            }
+        }, backgroundColor = Color.Gray
+    )
+
+
+}
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@Composable
+fun Navbar() {
+    Scaffold(
+        topBar ={ topBarNav()}
+    ) {
+        Homescreen()
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
